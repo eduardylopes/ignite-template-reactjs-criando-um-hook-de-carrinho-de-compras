@@ -64,8 +64,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         );
 
         setCart(newCart);
+        localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
       } else {
-        setCart([...cart, product]);
+        const newCart = [...cart, { ...product, amount: 1 }];
+        setCart(newCart);
+        localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
       }
     } catch {
       toast.error('Erro na adição do produto');
@@ -77,6 +80,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const newCart = cart.filter((product) => product.id !== productId);
 
       setCart(newCart);
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
     } catch {
       toast.error('Erro na remoção do produto');
     }
@@ -103,6 +107,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       );
 
       setCart(newCart);
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
     } catch {
       toast.error('Erro na alteração de quantidade do produto');
     }
